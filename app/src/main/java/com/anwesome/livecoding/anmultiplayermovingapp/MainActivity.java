@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         bus = BusUtil.getBus();
         bus.register(this);
         mSocket = SocketIOUtil.getIOSocket(AppConstants.HOST_ADDRESS);//Do it later
+        listenForGameObjects();
     }
     private void listenForGameObjects() {
         if(mSocket!=null) {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
                     if(args.length>0) {
                         String gameObjectJson = (String)args[0];
                         GameObject gameObject = GsonUtil.gameObjectFromJson(gameObjectJson);
+                        gameView.addGameObject(gameObject);
                         //Now we have got the new gameobject we need to send to gameview.
 
                     }
