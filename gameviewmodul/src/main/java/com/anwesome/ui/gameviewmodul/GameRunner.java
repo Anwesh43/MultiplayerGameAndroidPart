@@ -24,7 +24,7 @@ public class GameRunner implements Runnable {
     //Error number 2 we shouldn't use a list here there is a chance a gameObject can be modified concurrently
     private ConcurrentHashMap<Integer,GameObject> gameObjects = new ConcurrentHashMap();
     private GameObject currentObject;
-
+    private TapHandler tapHandler = new TapHandler();
     private GameView gameView;
     public GameRunner(SurfaceHolder surfaceHolder,GameView gameView) {
         this.surfaceHolder = surfaceHolder;
@@ -75,6 +75,7 @@ public class GameRunner implements Runnable {
                         gameObject.draw(canvas,paint);
 
                     }
+                    tapHandler.draw(canvas,paint);
                     surfaceHolder.unlockCanvasAndPost(canvas);
                     prev_time = System.currentTimeMillis();
                     time++;
@@ -84,6 +85,7 @@ public class GameRunner implements Runnable {
     }
     public void handleTouch(float x,float y) {
         if(currentObject!=null) {
+            tapHandler.tap(x,y);
             currentObject.setSpeed(x,y);
         }
     }
