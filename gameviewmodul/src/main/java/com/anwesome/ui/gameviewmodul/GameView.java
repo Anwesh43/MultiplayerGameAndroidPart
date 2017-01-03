@@ -39,7 +39,7 @@ public class GameView extends SurfaceView {
         }
     }
     public void addGameObject(GameObject gameObject) {
-
+        gameRunner.addGameObject(gameObject);
     }
     public void resume() {
         gameRunner.resume();
