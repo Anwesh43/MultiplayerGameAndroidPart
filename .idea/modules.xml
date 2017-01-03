@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AnMultiplayerMovingApp.iml" filepath="$PROJECT_DIR$/AnMultiplayerMovingApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eventbusmodule/eventbusmodule.iml" filepath="$PROJECT_DIR$/eventbusmodule/eventbusmodule.iml" />
       <module fileurl="file://$PROJECT_DIR$/gameviewmodul/gameviewmodul.iml" filepath="$PROJECT_DIR$/gameviewmodul/gameviewmodul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/socketiomodule/socketiomodule.iml" filepath="$PROJECT_DIR$/socketiomodule/socketiomodule.iml" />
     </modules>
   </component>
 </project>
