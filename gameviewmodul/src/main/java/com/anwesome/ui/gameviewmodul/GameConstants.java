@@ -11,5 +11,5 @@ public class GameConstants {
     private static int getColorFromHexCode(String colorCode) {
         return Color.parseColor(colorCode);
     }
-    public static final int colors[] = {getColorFromHexCode("#4DB6AC"),getColorFromHexCode("#F4511E"),getColorFromHexCode("#1976D2"),getColorFromHexCode("#F9A825"),getColorFromHexCode("#7E57C2"),getColorFromHexCode("#ef5350"),getColorFromHexCode("#76FF03")};
+    public static final String colors[] = {"#4DB6AC", "#F4511E", "#1976D2", "#F9A825", "#7E57C2", "#ef5350", "#76FF03"};
 }

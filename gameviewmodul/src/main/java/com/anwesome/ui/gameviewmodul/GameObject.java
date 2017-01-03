@@ -1,6 +1,7 @@
 package com.anwesome.ui.gameviewmodul;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 /**
@@ -8,7 +9,7 @@ import android.graphics.Paint;
  */
 public class GameObject {
     private float x=0,y=0,r=GameConstants.initial_radius,sx=0,sy=0,finalX,finalY,dimen = 0,w,h;
-    private int color;
+    private String color;
     private Integer id;
 
     public Integer getId() {
@@ -42,14 +43,14 @@ public class GameObject {
         this.h = h;
     }
 
-    public void setColor(int color) {
+    public void setColor(String color) {
         this.color = color;
     }
     public static GameObject newInstance(float x,float y) {
         return new GameObject(x,y);
     } //Creating a singleton
     public void draw(Canvas canvas, Paint paint) {
-        paint.setColor(color);
+        paint.setColor(Color.parseColor(color));
         canvas.drawCircle(x,y,r,paint);
     }
     public void move() {
@@ -108,6 +109,6 @@ public class GameObject {
     //Error 1 we can't iterate a list of objects properly if the object doesn't have hashCode() method
     //So let's code that up
     public int hashCode() {
-        return (int)x+(int)y+(int)r+(int)sx+color+(int)sy;
+        return (int)x+(int)y+(int)r+(int)sx+color.hashCode()+(int)sy;
     }
 }

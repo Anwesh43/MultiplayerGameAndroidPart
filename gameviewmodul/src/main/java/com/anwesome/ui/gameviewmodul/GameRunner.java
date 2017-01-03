@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class GameRunner implements Runnable {
     private SurfaceHolder surfaceHolder;
     private long prev_time = 0;
-    private int time = 0;
+    private int time = 0,width=100,height=100;
     private boolean isRunning = true;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     //Error number 2 we shouldn't use a list here there is a chance a gameObject can be modified concurrently
@@ -38,6 +38,8 @@ public class GameRunner implements Runnable {
         isRunning = true;
     }
     private void initGameObject(int w,int h) {
+        width = w;
+        height = h;
         Random random = new Random();
         int x = random.nextInt(w),y = random.nextInt(h);
         int randomColorIndex = random.nextInt(GameConstants.colors.length);
@@ -46,6 +48,8 @@ public class GameRunner implements Runnable {
         currentObject.setColor(GameConstants.colors[randomColorIndex]);
         currentObject.setW(w);
         currentObject.setH(h);
+        currentObject.setId(randomId);
+        gameView.postGameObject(currentObject);
     }
     public void run() {
         while(isRunning) {
@@ -69,7 +73,7 @@ public class GameRunner implements Runnable {
                     for(Map.Entry<Integer,GameObject> gameObjectEntry:gameObjects.entrySet()) {
                         GameObject gameObject = gameObjectEntry.getValue();
                         gameObject.draw(canvas,paint);
-                        gameObject.modifyDimensions(w/gameObject.getW(),h/gameObject.getH());
+
                     }
                     surfaceHolder.unlockCanvasAndPost(canvas);
                     prev_time = System.currentTimeMillis();
@@ -84,6 +88,7 @@ public class GameRunner implements Runnable {
         }
     }
     public void addGameObject(GameObject gameObject) {
+        gameObject.modifyDimensions(width/gameObject.getW(),height/gameObject.getH());
         gameObjects.put(gameObject.getId(),gameObject);
     }
 }
