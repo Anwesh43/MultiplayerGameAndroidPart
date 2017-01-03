@@ -1,1 +1,1 @@
-include ':app', ':gameviewmodul'
+include ':app', ':gameviewmodul', ':eventbusmodule', ':socketiomodule'
