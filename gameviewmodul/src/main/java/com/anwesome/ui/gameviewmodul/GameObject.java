@@ -9,7 +9,17 @@ import android.graphics.Paint;
 public class GameObject {
     private float x=0,y=0,r=GameConstants.initial_radius,sx=0,sy=0,finalX,finalY,dimen = 0,w,h;
     private int color;
-    private GameObject(float x,float y) {
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    private GameObject(float x, float y) {
         this.x = x;
         this.y = y;
         this.finalX = x;
@@ -72,7 +82,10 @@ public class GameObject {
     public void setSy(float sy) {
         this.sy = sy;
     }
-
+    public void modifyDimensions(float scaleX,float scaleY) {
+        x*=scaleX;
+        y*=scaleY;
+    }
     public void setSpeed(float x, float y) {
         if(x != this.x || y!=this.y) {
             if(Math.abs(x-this.x)>=Math.abs(y-this.y)) {

@@ -9,6 +9,7 @@ import com.anwesome.ui.eventbusmodule.BusUtil;
 import com.squareup.otto.Bus;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -21,7 +22,7 @@ public class GameRunner implements Runnable {
     private boolean isRunning = true;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     //Error number 2 we shouldn't use a list here there is a chance a gameObject can be modified concurrently
-    private ConcurrentLinkedQueue<GameObject> gameObjects = new ConcurrentLinkedQueue<>();
+    private ConcurrentHashMap<Integer,GameObject> gameObjects = new ConcurrentHashMap();
     private GameObject currentObject;
 
     private GameView gameView;
@@ -40,6 +41,7 @@ public class GameRunner implements Runnable {
         Random random = new Random();
         int x = random.nextInt(w),y = random.nextInt(h);
         int randomColorIndex = random.nextInt(GameConstants.colors.length);
+        int randomId = random.nextInt(100000);
         currentObject =   GameObject.newInstance(x,y);
         currentObject.setColor(GameConstants.colors[randomColorIndex]);
         currentObject.setW(w);
@@ -64,9 +66,10 @@ public class GameRunner implements Runnable {
                     }
                     //This piece of code will give lot of errors
 
-                    for(GameObject gameObject:gameObjects) {
+                    for(Map.Entry<Integer,GameObject> gameObjectEntry:gameObjects.entrySet()) {
+                        GameObject gameObject = gameObjectEntry.getValue();
                         gameObject.draw(canvas,paint);
-                        gameObject.move();
+                        gameObject.modifyDimensions(w/gameObject.getW(),h/gameObject.getH());
                     }
                     surfaceHolder.unlockCanvasAndPost(canvas);
                     prev_time = System.currentTimeMillis();
@@ -81,6 +84,6 @@ public class GameRunner implements Runnable {
         }
     }
     public void addGameObject(GameObject gameObject) {
-        gameObjects.add(gameObject);
+        gameObjects.put(gameObject.getId(),gameObject);
     }
 }
